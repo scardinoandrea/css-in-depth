@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<head>
+  <style>
+    body {
+      padding: 20px 0 0 20px;
+      font-size: 16px;
+    }
+
+    .slogan {
+      font-size: 1.2em;
+      padding: 1.2em; /*em is not 16px anymore, but 1.2(16px)=19.2 as this is the font size of this selector*/
+      background-color: #ccc;
+    }
+
+    .box {
+      padding: 1em;
+      border-radius: 1em;
+      background-color: lightgray;
+    }
+
+    .box-small {
+      font-size: 12px;
+    }
+
+    .box-large {
+      font-size: 18px;
+    }
+
+    /* this causes shrinking of the text --> each ul is 80% of the previous ul 
+    ul {
+      font-size: 0.8em;
+    } */
+
+    ul {
+      font-size: 0.8em;
+    }
+
+    ul ul {
+      font-size: 1em; /* list inside list should have the same size as the parent list */
+    }
+
+    /* 
+    NOTES: 
+    - 1em means the font size of the current element
+    - if the selector doesn't have a font-size, it will inherit the font-size of the parent element
+    - if the selector has a font-size, it will inherit the font-size of the parent element and multiply it by the font-size of the selector
+    - Calculate ems --> (font-size of the selector) / (font-size of the parent element) = (font-size of the selector in ems)
+    
+    */
+  </style>
+</head>
+<body>
+  We love coffee
+  <p class="slogan">We love coffee</p>
+
+  <span class="box box-small">Small</span>
+  <span class="box box-large">Large</span>
+
+  <ul>
+    <li>
+      Top level
+      <ul>
+        <li>
+          Second level
+          <ul>
+            <li>
+              Third level
+              <ul>
+                <li>
+                  Fourth level
+                  <ul>
+                    <li>Fifth level</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</body>
