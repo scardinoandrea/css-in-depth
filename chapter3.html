@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<head>
+  <!-- In this chapter the styling will look a bit blocky to show each container and their positions (the box model) -->
+  <style>
+    /* The box sizing in the root also applies to third party components. It's recommended to do this on all new stylesheets */
+    :root {
+      box-sizing: border-box;
+    }
+
+    /* Universal selector *: targets all elements on the page */
+    *,
+    ::before,
+    ::after {
+      box-sizing: inherit;
+    }
+
+    body {
+      background-color: #eee;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    header {
+      color: #fff;
+      background-color: #0072b0;
+      border-radius: 0.5em;
+    }
+    /* to be used when working on table layouts
+    .wrapper {
+       This will make the container to be aligned with the header, as border-spacing affects also the outside edges of the table 
+      margin-left: -1.5em;
+      margin-right: -1.5em;
+    } */
+
+    .container {
+      /* to be used when working on table layouts 
+      display: table;
+      width: 100%;
+      border-spacing: 1.5em 0; 1.5em of space between the main and the sidebar (gutter) */
+      display: flex;
+    }
+
+    main {
+      width: 70%;
+      /* display: table-cell; */
+      background-color: #fff;
+      border-radius: 0.5em;
+    }
+
+    .sidebar {
+      /* display: table-cell; This will make the sidebar to be next to the main content and grow parallel their height */
+      /* width: calc(30% - 1.5em); */
+      width: 30%;
+      margin-left: 1.5em; /* margins can't be applied to table-cells*/
+      padding: 1.5em;
+      background-color: #fff;
+      border-radius: 0.5em;
+    }
+
+    /* 
+    NOTES: 
+    - When you set the width or height of an element, the padding and border are added to the width.
+    - Avoid setting a "magic number" (a number that by try and error works) for the width or height, try:
+      -Let the browser calculate it calc(30% - 3em)
+      -Update the box model box-sizing: border-box; (this will make the padding and border to be included in the width and height)
+    -Gutter --> small space/gap between elements
+    -The author prefer em-based gutter over percentage-based gutter (more readable and explicit) --> use calc()
+    -Avoid setting explicit heights, let the content dictate the height (unless you don't have another option)
+      -When you explitly set the height, the content could overflow the container
+      -Any content below the container will render over the top of the overflowed content
+    -Control overflow with overflow: hidden; or overflow: auto; --> avoid using overflow: scroll; as we should show scrollbars only when needed
+    -Avoid setting heights with percentages, as the height of the parent is based on the height of the content -->  for % to work, the parent must have a explicit defined height (use vh instead)
+
+    */
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Franklin Running Club</h1>
+  </header>
+  <!-- <div class="wrapper"> -->
+  <div class="container">
+    <main class="main">
+      <h2>Come join us!</h2>
+      <p>
+        The Franklin Running club meets at 6:00pm every Thursday at the town
+        square. Runs are three to five miles, at your own pace.
+      </p>
+    </main>
+    <aside class="sidebar">
+      <div class="widget"></div>
+      <div class="widget"></div>
+    </aside>
+  </div>
+  <!-- </div> -->
+</body>
