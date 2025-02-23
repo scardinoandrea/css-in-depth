@@ -1,9 +1,42 @@
 <!DOCTYPE html>
 <head>
   <style>
+    /* 1em = 16px by default*/
+    :root {
+      /* the :root pseude-class is equivalent to the HTML type selector */
+      font-size: cal(
+        0.5em + 1vw
+      ); /* 0.5em acts like a minimum font size and 1vw adds a responsive scalar (responsive without media querys)*/
+      --main-font: Helvetica, Arial, sans-serif;
+      --brand-color: #369;
+      --main-bg: #fff;
+      --main-color: #000;
+    }
+
+    /*  @media (min-width: 800px) {
+      :root {
+        font-size: 0.875em;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      :root {
+        font-size: 1em;
+      }
+    } */
+
     body {
       padding: 20px 0 0 20px;
       font-size: 16px;
+      line-height: 1.2em;
+    }
+
+    .about-us {
+      font-family: var(--main-font, sans-serif);
+      color: var(
+        --brand-color,
+        blue
+      ); /* if --brand-color is not defined, it will be blue */
     }
 
     .slogan {
@@ -31,12 +64,55 @@
       font-size: 0.8em;
     } */
 
+    /*using em
     ul {
       font-size: 0.8em;
     }
 
     ul ul {
-      font-size: 1em; /* list inside list should have the same size as the parent list */
+      font-size: 1em;  list inside list should have the same size as the parent list 
+    }
+    */
+
+    /*using rem, takes font size from the root (rem = root em)*/
+    ul {
+      font-size: 0.8rem;
+    }
+
+    .dark {
+      margin-top: 2em;
+      padding: 1em;
+      background-color: #9989;
+      --main-bg: #333;
+      --main-color: #fff; /* redefining the variable: inside of this container --main-color is white */
+    }
+
+    .panel {
+      font-size: 1em;
+      padding: 1em;
+      border-radius: 0.5em;
+      border: 1px solid #999;
+      background-color: var(--main-bg);
+      color: var(--main-color);
+    }
+
+    .panel > h2 {
+      /* targets a h2 that's child element of a .panel*/
+      margin-top: 0;
+      font-size: 0.8em;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .panel.large {
+      font-size: 1.2em;
+    }
+
+    /* Responsive without media queries */
+    .square {
+      width: 90vmin; /* 90% of the viewport's smallest dimension */
+      height: 90vmin;
+      background-color: #369;
     }
 
     /* 
@@ -45,13 +121,23 @@
     - if the selector doesn't have a font-size, it will inherit the font-size of the parent element
     - if the selector has a font-size, it will inherit the font-size of the parent element and multiply it by the font-size of the selector
     - Calculate ems --> (font-size of the selector) / (font-size of the parent element) = (font-size of the selector in ems)
-    
+    - The author suggests to use rems for font-size, pixels for borders and ems for other measures(paddings, margins, border radius, etc.)
+    - > means direct descendant combination. It selects only the elements that are direct descendants of the specified element
+    - it's possible to use vw for font-size, but it's not recommended as for big screens the text will be too big and the opposite for small screens (if is used 2vw it's 24px for 1200px and 7,5px for an iPhone 6)
+    - calc() useful for combining values that are measured in different units
+    - variables must be declared in declaration blocks, not in selectors
+    - Custom properties (variables) let you define a value in one place, as a "single source of truth", and reuse it in multiple places
     */
   </style>
 </head>
 <body>
   We love coffee
   <p class="slogan">We love coffee</p>
+
+  <p class="about-us">
+    We are a small coffee shop located in the heart of the city. We offer a
+    variety of single-origin coffee beans from around the world.
+  </p>
 
   <span class="box box-small">Small</span>
   <span class="box box-large">Large</span>
@@ -79,4 +165,37 @@
       </ul>
     </li>
   </ul>
+
+  <div class="panel">
+    <h2>Single-origin</h2>
+    <div class="panel-body">
+      Bla bla bla some text. Bla bla bla some text. Bla bla bla some text. Bla
+      bla bla some text. Bla bla bla <a href="/link">a link</a>. Bla bla bla
+      some text.
+    </div>
+  </div>
+
+  <aside class="dark">
+    <div class="panel">
+      <h2>Single-origin</h2>
+      <div class="body">
+        We have built partnerships with small farms around the world to
+        hand-select beans at the peak of season. We then carefully roast in
+        small batches to maximize their potential.
+      </div>
+    </div>
+  </aside>
+
+  <div class="square"></div>
+
+  <!-- Because you can specify new values for custom properties on the fly, you can use javascript to set a new value -->
+  <script type="text/javascript">
+    let rootElement = document.documentElement;
+    let styles = getComputedStyle(rootElement);
+    let mainColor = styles.getPropertyValue("--main-bg");
+    console.log(String(mainColor).trim());
+
+    rootElement = document.documentElement;
+    rootElement.style.setProperty("--main-bg", "#cdf");
+  </script>
 </body>
