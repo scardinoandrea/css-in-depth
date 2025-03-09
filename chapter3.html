@@ -19,14 +19,23 @@
       font-family: Arial, Helvetica, sans-serif;
     }
 
+    /* Lobotomized owl selector * + * --> targets all elements (*) followed by an adjacent sibling combinator (+), followed by another universal selector */
+    body * + * {
+      margin-top: 1.5em;
+    }
+
     header {
       color: #fff;
       background-color: #0072b0;
       border-radius: 0.5em;
+      padding: 1em 1.5em;
+      /* Vertical center option 1 (display= inline, block) --> equal top and bottom padding */
+      /* padding-top: 4em;
+      padding-bottom: 4em; */
     }
     /* to be used when working on table layouts
     .wrapper {
-       This will make the container to be aligned with the header, as border-spacing affects also the outside edges of the table 
+      This will make the container to be aligned with the header, as border-spacing affects also the outside edges of the table 
       margin-left: -1.5em;
       margin-right: -1.5em;
     } */
@@ -44,6 +53,7 @@
       /* display: table-cell; */
       background-color: #fff;
       border-radius: 0.5em;
+      padding: 1em 1.5em;
     }
 
     .sidebar {
@@ -54,22 +64,65 @@
       padding: 1.5em;
       background-color: #fff;
       border-radius: 0.5em;
+      margin-top: 0; /* to remove the margin-top from the lobotomized owl selector */
+    }
+
+    .button-link {
+      display: block; /* The block element fills the available width and puts each link on its own line*/
+      padding: 0.5em;
+      color: #fff;
+      background-color: #0090c9;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    /* Using adjacent sibling combinator to apply a margin between buttons */
+    /* .button-link + .button-link {
+      margin-top: 1.5em;
+    } */
+
+    .sponsor-link {
+      display: block;
+      color: #0072b0;
+      font-weight: bold;
+      text-decoration: none;
     }
 
     /* 
     NOTES: 
     - When you set the width or height of an element, the padding and border are added to the width.
+    - Always use a universal border-box fix for predictable elements sizing
     - Avoid setting a "magic number" (a number that by try and error works) for the width or height, try:
       -Let the browser calculate it calc(30% - 3em)
       -Update the box model box-sizing: border-box; (this will make the padding and border to be included in the width and height)
     -Gutter --> small space/gap between elements
     -The author prefer em-based gutter over percentage-based gutter (more readable and explicit) --> use calc()
     -Avoid setting explicit heights, let the content dictate the height (unless you don't have another option)
-      -When you explitly set the height, the content could overflow the container
+      -When you explicitly set the height, the content could overflow the container
       -Any content below the container will render over the top of the overflowed content
     -Control overflow with overflow: hidden; or overflow: auto; --> avoid using overflow: scroll; as we should show scrollbars only when needed
     -Avoid setting heights with percentages, as the height of the parent is based on the height of the content -->  for % to work, the parent must have a explicit defined height (use vh instead)
-
+    -Vertical center options:
+      -Not set height (natural height) --> use padding-top and padding-bottom with the same value
+      -Set height --> use display: table-cell; vertical-align: middle;
+      -Can use flexbox --> align-items: center;
+      -Inner content just 1 line --> set line-height equal to the height of the container
+      -Height of the container and the content is known --> use position: absolute; top: 50%;  (Last resort) (more in chapter 7)
+      -Height of the container and the content is not known --> use position: absolute; top: 50%; transform: translateY(-50%); (Last resort) (more in chapter 15)
+      -http://howtocenterincss.com/
+    -Collapsed margins --> when two margins touch, they collapse into a single margin
+    -The size of a collapsed margin is the size of the largest margin
+    -Only top and bottom margins collapse
+    -Collapsed margins can bring problems like a background color not filling the entire container
+    -How to avoid collapsed margins:
+      -Use flexbox
+      -Use overflow: auto;
+      -Add a border or padding between the elements
+      -Use a floated element that is an inline-block or that has absolute or fixed positioning
+      -Use a table layout (elements with a table cell don't have margin, so they wont collapse)
+    -The lobotomized owl selector --> targets all elements (*) followed by an adjacent sibling combinator (+), followed by another universal selector
+    -Consider using the lobotomized owl selector to globally apply margin between stacked elements
     */
   </style>
 </head>
@@ -81,14 +134,18 @@
   <div class="container">
     <main class="main">
       <h2>Come join us!</h2>
-      <p>
-        The Franklin Running club meets at 6:00pm every Thursday at the town
-        square. Runs are three to five miles, at your own pace.
-      </p>
+      <div>
+        <!-- Margin of h2 and p still collapse even with this div wrapping the p (the top margin of the div is add to the collapse sum: 0px) -->
+        <p>
+          The Franklin Running club meets at 6:00pm every Thursday at the town
+          square. Runs are three to five miles, at your own pace.
+        </p>
+      </div>
     </main>
     <aside class="sidebar">
-      <div class="widget"></div>
-      <div class="widget"></div>
+      <a href="/twitter" class="button-link">Follow us on Twitter</a>
+      <a href="/facebook" class="button-link">Like us on Facebook</a>
+      <a href="/sponsors" class="sponsor-link">Become an sponsor</a>
     </aside>
   </div>
   <!-- </div> -->
