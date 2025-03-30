@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<head>
+  <style>
+    :root {
+      box-sizing: border-box;
+    }
+
+    *,
+    ::before,
+    ::after {
+      box-sizing: inherit;
+    }
+
+    body {
+      background-color: #eee;
+      font-family: Helvetica, Arial, sans-serif;
+    }
+
+    body * + * {
+      margin-top: 1.5em;
+    }
+
+    header {
+      padding: 1em 1.5em;
+      color: #fff;
+      background-color: #0072b0;
+      border-radius: 0.5em;
+      margin-bottom: 1.5em;
+    }
+
+    .main {
+      padding: 0 1.5em 1.5em;
+      background-color: #fff;
+      border-radius: 0.5em;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto; /* auto left and right margins will grow to fill the available space, centering the element within the outer container */
+    }
+
+    .media {
+      /* float: left;
+      margin: 0 1.5em 1.5em 0;
+      width: calc(50% - 1.5em); width to fit 2 boxes across the page */
+      padding: 1.5em;
+      background-color: #eee;
+      border-radius: 0.5em;
+    }
+
+    /* .media:nth-child(odd) {
+      clear: left; Each new row clears the row above 
+    } */
+
+    .media-image {
+      float: left;
+      margin-right: 1.5em;
+    }
+
+    .media-body {
+      overflow: auto; /* This will create a new block formatting context (BFC) for the floated elements inside the media-body */
+      margin-top: 0;
+    }
+
+    .media-body h4 {
+      margin-top: 0;
+    }
+
+    /*     
+    This fix has one problem: 
+
+    While the clearfix hack successfully clears floats by adding a clearing pseudo-element, it introduces an inconsistency in margin collapsing.
+    Floated elements are isolated from external margin collapse, unlike non-floated elements. 
+
+    This means that the margin of the floated element will not collapse with the margin of its parent container.
+    This can lead to unexpected spacing issues, especially when using the clearfix hack in conjunction with other layout techniques.
+    In this case the heading "Running tips" is pressed against the top of the container.
+    
+    .clearfix::after {
+      clearfix class or cf (contains floats)
+      content: ""; non-inline display and a content value cause the pseudo-element to appear
+      display: block;
+      clear: both; makes the pseudo-element clear all floats in the container
+    }
+    */
+
+    /* This version also doubles as a useful way to prevents margin collapsing where we don't want it */
+    .clearfix::before,
+    .clearfix::after {
+      content: "";
+      display: table; /* makes the pseudo-element a block-level element --> table cells margins don't collapse  */
+    }
+    .clearfix::after {
+      clear: both; /* Only after we clear the floats */
+    }
+
+    .row {
+      margin-left: -0.75em; /* negative margin to offset the padding of the columns */
+      margin-right: -0.75em; /* negative margin to offset the padding of the columns */
+    }
+
+    .row::after {
+      content: " ";
+      display: block;
+      clear: both;
+    }
+
+    [class*="column-"] {
+      /* attribute selector --> targets elements base on their class attribute (class name that contains "column-") */
+      float: left;
+      padding: 0 0.75em; /* 0.75em left and right padding */
+      margin-top: 0;
+    }
+    .column-1 {
+      width: 8.3333%;
+    }
+    .column-2 {
+      width: 16.6667%;
+    }
+    .column-3 {
+      width: 25%;
+    }
+    .column-4 {
+      width: 33.3333%;
+    }
+    .column-5 {
+      width: 41.6667%;
+    }
+    .column-6 {
+      width: 50%;
+    }
+    .column-7 {
+      width: 58.3333%;
+    }
+    .column-8 {
+      width: 66.6667%;
+    }
+    .column-9 {
+      width: 75%;
+    }
+    .column-10 {
+      width: 83.3333%;
+    }
+    .column-11 {
+      width: 91.6667%;
+    }
+    .column-12 {
+      width: 100%;
+    }
+
+    /* 
+    Notes:
+    - Floated elements don't add to the height of their parent container.
+      - A way to fix this is to add a clearfix class to the parent element --> the container expands to the bottom of the floats
+    - pseudo - elements --> special selector that targets a specific part of an element
+      - ::before and ::after are pseudo-elements that can be used to add content before or after an element's content
+    - clearfix hack --> a way to clear floats without adding extra markup
+    - "Clearing" floats means forcing the parent container to recognize the height of its floated children.
+    - Browsers place floats as high as possible
+    - Floating a serie of elements to one side, can end up with a wild layout, depending on the height of the floated elements
+    - Media object pattern --> a common design pattern in web development that consists of an image and text side by side
+    - Block formatting context (BFC) --> a way to control how elements are laid out in relation to each other (i.e. the contents inside will not overlap or interact with elements outside of it)
+      - It contains the top and bottom margins of its children
+      - It contains the floats of its children
+      - It doesn't overlap with floated elements outside of it (Prevents margin collapse)
+      - The best way to create a BFC is to use the overflow property with a value of auto or hidden
+    - Grid system --> serie of class names to structure portions of the page into rows and columns
+      - It doesn't provide visual styles, but it provides a way to set widths and heights of elements
+      - It's usually defined to hold a certain number of columns (e.g. 12 columns)
+      - Its child elements are given a width in terms of the number of columns they should span
+    - CSS frameworks --> a library of prebuild CSS code that provides styles for patterns common in web development
+      - Bootstrap, Foundation, Bulma, Tailwind CSS
+      - They provide a grid system, typography styles, and other common UI components
+      - They are built on top of CSS and can be customized to fit your needs
+
+    - 
+    */
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Franklin Running Club</h1>
+    </header>
+
+    <main class="main clearfix">
+      <h2>Running tips</h2>
+
+      <!-- <div style="clear: both"></div>  clear -> makes the element to move below the bottom of floated elements. But it adds and unwanted markup -->
+      <div class="row">
+        <div class="column-6">
+          <div class="media">
+            <img
+              class="media-image"
+              src="https://thegreenrunners.com/wp-content/uploads/2025/01/home-runner2.png"
+              width="80"
+            />
+            <div class="media-body">
+              <h4>Strength</h4>
+              <p>
+                Strength training is an important part of injury prevention.
+                Focus on your core&mdash; especially your abs and glutes.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="column-6">
+          <div class="media">
+            <img
+              class="media-image"
+              src="https://images.ctfassets.net/hnk2vsx53n6l/IXKBo7ZyF9BneZwNdQWgE/1e33ca7a26e8213aee4153525664af05/eeyhwchlrg8a8abanjqo.png?fm=webp"
+              width="80"
+            />
+            <div class="media-body">
+              <h4>Cadence</h4>
+              <p>
+                Check your stride turnover. The most efficient runners take
+                about 180 steps per minute.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column-6">
+          <div class="media">
+            <img
+              class="media-image"
+              src="https://images.ctfassets.net/hnk2vsx53n6l/IXKBo7ZyF9BneZwNdQWgE/1e33ca7a26e8213aee4153525664af05/eeyhwchlrg8a8abanjqo.png?fm=webp"
+              width="80"
+            />
+            <div class="media-body">
+              <h4>Change it up</h4>
+              <p>
+                Don't run the same every time you hit the road. Vary your pace,
+                and vary the distance of your runs.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="column-6">
+          <div class="media">
+            <img
+              class="media-image"
+              src="https://thegreenrunners.com/wp-content/uploads/2025/01/home-runner2.png"
+              width="80"
+            />
+            <div class="media-body">
+              <h4>Focus on form</h4>
+              <p>
+                Run tall but relaxed. Your feet should hit the ground beneath
+                your hips, not out in front of you.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
