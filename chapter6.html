@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<head>
+  <style>
+    /* .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      grid-gap: 0.5em;
+    }
+
+    .grid > * {
+      background-color: #709b90;
+      color: white;
+      padding: 2em;
+      border-radius: 0.5em;
+    } */
+
+    :root {
+      box-sizing: border-box;
+    }
+
+    *,
+    ::before,
+    ::after {
+      box-sizing: inherit;
+    }
+
+    body {
+      background-color: #709b90;
+      font-family: Helvetica, Arial, sans-serif;
+    }
+
+    .portfolio {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      /* minmax --> implicit grid (the browser will ensure the grid track falls between these values) */
+      /* auto-fill --> will fill the row with as many columns as it can fit (to avoid empty columns use auto-fit instead --> empty tracks will stretch to fill the available space) */
+      /* together auto-fill and minmax create a responsive grid that adapts to the container's width */
+      grid-auto-rows: 1fr;
+      grid-gap: 1em;
+      grid-auto-flow: dense; /* fills in gaps in the grid with items that fit */
+    }
+
+    .portfolio > figure {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+    }
+
+    .portfolio img {
+      flex: 1;
+      object-fit: cover; /* scales the image to cover the entire container while preserving its aspect ratio, cropping if necessary */
+      max-width: 100%;
+    }
+
+    .portfolio figcaption {
+      padding: 0.3em 0.8em;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      text-align: right;
+    }
+
+    .portfolio .featured {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    /* Notes
+    - grid container behaves like a block element, filling 100% of the width by default.
+    - inline-grid will be as wide as is necessary to fit its children.
+    - fr --> fraction unit represents a fraction of the available space in the grid container.
+    - grid-gap --> defines the space between grid items. It can be set for horizontal and vertical gaps.
+    - 2 dimensions alignment --> use grid
+    - 1 directional flow --> use flexbox
+    - Name grid tracks --> grid-template-columns: [name1] 1fr [name2] 1fr [name3] or with 2 names grid-template-rows: [left-start] 1fr [left-end right-start] 1fr;
+    - implicit grid tracks --> not defined sizes, but managed by the browser. Allows the grid item placement algorithm to position the gird items where they fit best.
+    - grid-auto-flow: dense; --> fills in gaps in the grid with items that fit even if it means breaking the order of items in the source code.
+      - Use it with caution as it can lead to unexpected layouts, and users navigating with screen readers or keyboard may find it confusing.
+    - For nested grids use subgrid, which allows a child grid to inherit the grid lines of its parent grid. 
+      - https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Subgrid
+    - object-fit (images) -->
+      - fill (default)--> stretches the image to fill the container, ignoring its aspect ratio.
+      - contain --> scales the image to fit within the container while preserving its aspect ratio.
+      - cover --> scales the image to cover the entire container while preserving its aspect ratio, cropping if necessary.
+    */
+  </style>
+</head>
+
+<body>
+  <!-- <div class="grid">
+    <div class="a">a</div>
+    <div class="b">b</div>
+    <div class="c">c</div>
+    <div class="d">d</div>
+    <div class="e">e</div>
+    <div class="f">f</div>
+  </div> -->
+  <div class="portfolio">
+    <figure class="featured">
+      <img
+        src="https://images.pexels.com/photos/1829979/pexels-photo-1829979.jpeg"
+        alt="monkey"
+      />
+      <figcaption>Monkey</figcaption>
+    </figure>
+    <figure>
+      <img
+        src="https://images.pexels.com/photos/1268849/pexels-photo-1268849.jpeg"
+        alt="eagle"
+      />
+      <figcaption>Eagle</figcaption>
+    </figure>
+    <figure class="featured">
+      <img
+        src="https://14544033.fs1.hubspotusercontent-na2.net/hubfs/14544033/Imported_Blog_Media/feature-photo.jpg"
+        alt="bird"
+      />
+      <figcaption>Bird</figcaption>
+    </figure>
+    <figure>
+      <img
+        src="https://davidduchemin.com/WP/wp-content/uploads/2022/10/20221001-duChemin-Chilcotin-Bears-2447-ARW_DxO-1.jpg"
+        alt="bear"
+      />
+      <figcaption>Bear</figcaption>
+    </figure>
+    <figure class="featured">
+      <img
+        src="https://thumbs.dreamstime.com/b/swan-serenity-9992916.jpg"
+        alt="swan"
+      />
+      <figcaption>Swan</figcaption>
+    </figure>
+    <figure>
+      <img
+        src="https://images.pexels.com/photos/322480/pexels-photo-322480.jpeg"
+        alt="elephants"
+      />
+      <figcaption>Elephants</figcaption>
+    </figure>
+    <figure>
+      <img
+        src="https://121clicks.com/wp-content/uploads/2024/12/owl-bird-photography-johannes-immonen-featured.jpg"
+        alt="owl"
+      />
+      <figcaption>Owl</figcaption>
+    </figure>
+  </div>
+</body>
