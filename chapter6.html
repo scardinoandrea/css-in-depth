@@ -39,6 +39,7 @@
       grid-auto-rows: 1fr;
       grid-gap: 1em;
       grid-auto-flow: dense; /* fills in gaps in the grid with items that fit */
+      reading-flow: grid-columns;
     }
 
     .portfolio > figure {
@@ -75,7 +76,7 @@
     - Name grid tracks --> grid-template-columns: [name1] 1fr [name2] 1fr [name3] or with 2 names grid-template-rows: [left-start] 1fr [left-end right-start] 1fr;
     - implicit grid tracks --> not defined sizes, but managed by the browser. Allows the grid item placement algorithm to position the gird items where they fit best.
     - grid-auto-flow: dense; --> fills in gaps in the grid with items that fit even if it means breaking the order of items in the source code.
-      - Use it with caution as it can lead to unexpected layouts, and users navigating with screen readers or keyboard may find it confusing.
+      - Use it with caution as it can lead to unexpected layouts, and users navigating with screen readers or keyboard may find it confusing. Note: accessibility issue was fixed adding reading-flow;
     - For nested grids use subgrid, which allows a child grid to inherit the grid lines of its parent grid. 
       - https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Subgrid
     - object-fit (images) -->
